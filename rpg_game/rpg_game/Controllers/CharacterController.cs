@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rpg_game.Dtos.Character;
 using rpg_game.Models;
@@ -5,6 +7,7 @@ using rpg_game.Services.CharacterService;
 
 namespace rpg_game.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CharacterController : ControllerBase
@@ -17,11 +20,13 @@ public class CharacterController : ControllerBase
     }
     private static Character knight = new Character();
     
-
+    
+    // [AllowAnonymous]
     [HttpGet("GetAll")]
     public async Task<IActionResult> Get()
     {
-        return Ok(await _characterService.GetAllCharacters());
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        return Ok(await _characterService.GetAllCharacters(userId));
     }
     
     [HttpGet("{id}")]

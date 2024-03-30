@@ -35,11 +35,11 @@ public class CharacterService : ICharacterService
 
     
 
-    public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
+    public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int userId)
     {
         ServiceResponse<List<GetCharacterDto>> serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
         // get char from database 
-        List<Character> dbCharacters = await _context.Characters.ToListAsync();
+        List<Character> dbCharacters = await _context.Characters.Where(c => c.user.Id == userId).ToListAsync();
         // map every char of the list into GCD
         serviceResponse.Data = (dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c))).ToList();
         return serviceResponse;
