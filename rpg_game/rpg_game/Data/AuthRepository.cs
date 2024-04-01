@@ -24,7 +24,7 @@ public class AuthRepository : IAuthRepository
         if (await UserExists(user.Username))
         {
             response.Success = false;
-            response.Massage = "User already exists.";
+            response.Message = "User already exists.";
             return response;
         }
         
@@ -62,12 +62,12 @@ public class AuthRepository : IAuthRepository
         if (user == null)
         {
             response.Success = false;
-            response.Massage = "User not found.";
+            response.Message = "User not found.";
         }
         else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
         {
             response.Success = false;
-            response.Massage = "Wrong password.";
+            response.Message = "Wrong password.";
         }
         else
         {
