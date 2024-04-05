@@ -9,6 +9,9 @@ public class Character
     public int Defense { get; set; } = 10;
     public int Intelligence { get; set; } = 10;
     public RpgClass Class { get; set; } = RpgClass.Knight;
-
+    
+    // one to many relation between character and user
     public User User { get; set; }
+    // one to one relation between character and user
+    public Weapon Weapon { get; set; }
 }
