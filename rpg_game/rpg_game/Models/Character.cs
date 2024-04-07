@@ -14,4 +14,6 @@ public class Character
     public User User { get; set; }
     // one to one relation between character and user
     public Weapon Weapon { get; set; }
+    // many to many relation between character and skills
+    public List<CharacterSkill> CharacterSkills { get; set; }
 }
